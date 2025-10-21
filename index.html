@@ -3,30 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio - Syarafina, S.T.Kom</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <title>Portofolio Profesional - Syarafina, S.T.Kom</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Memuat ikon Lucide (untuk tampilan modern) -->
+    <!-- Custom Styles dan Animasi -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f1f5f9; /* light slate background */
+            background-color: #f1f5f9; /* Light Slate Background */
+            color: #374151; /* Default text color */
+            padding-top: 4rem; /* Padding agar konten tidak tertutup navbar */
+        }
+        .accent-color {
+            color: #1e3a8a; /* Deep Blue Accent */
+        }
+        .accent-bg {
+            background-color: #06b6d4; /* Cyan/Teal secondary accent */
         }
         .section-header {
-            border-left: 4px solid #1d4ed8; /* Blue-700 */
+            border-left: 4px solid #1e3a8a; /* Deep Blue */
             padding-left: 1rem;
         }
-        /* Style untuk kartu yang interaktif */
+        /* Card Hover Effect */
         .card {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
         }
         .card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
-            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            transform: translateY(-5px); /* Lift effect */
         }
-        /* Style untuk timeline */
+        /* Timeline Style */
         .timeline-item {
             position: relative;
             padding-left: 2rem;
@@ -39,7 +48,7 @@
             top: 0.25rem;
             width: 10px;
             height: 10px;
-            background: #1d4ed8; /* Blue-700 */
+            background: #1e3a8a; /* Deep Blue */
             border-radius: 50%;
             z-index: 10;
         }
@@ -50,10 +59,57 @@
             top: 1rem;
             bottom: -0.5rem;
             width: 2px;
-            background: #cbd5e1; /* Gray-300 */
+            background: #d1d5db; /* Light Gray Line */
             z-index: 5;
         }
         .timeline-item:last-child::after {
+            display: none;
+        }
+
+        /* Keyframes untuk Animasi Masuk */
+        @keyframes fadeInSlideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Kelas untuk Menerapkan Animasi */
+        .animate-entrance {
+            opacity: 0;
+            animation: fadeInSlideUp 0.6s ease-out forwards;
+        }
+        
+        /* Delay untuk animasi per bagian */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Progress Bar Styling (simulasi) */
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #06b6d4; /* Teal */
+            transition: width 1s ease-out;
+            /* Animasi akan dijalankan melalui JS */
+        }
+
+        .nav-link {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .nav-link.active {
+            color: #1e3a8a; /* Deep Blue */
+            font-weight: 600;
+            border-bottom: 3px solid #06b6d4;
+            padding-bottom: 0.5rem;
+        }
+        .view-section {
             display: none;
         }
     </style>
@@ -64,191 +120,454 @@
         // Fungsi untuk ikon Lucide
         function getIcon(name, classes = 'w-5 h-5 mr-3') {
             const icons = {
-                'user': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
-                'phone': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72 17.63 17.63 0 0 0 .67 2.05L6.61 8.35a2 2 0 0 0-.58 1.43 15.46 15.46 0 0 0 6.64 6.64 2 2 0 0 0 1.43-.58l1.82-1.82a17.63 17.63 0 0 0 2.05.67 2 2 0 0 1 1.72 2z"/></svg>`,
-                'mail': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
-                'mapPin': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+                'home': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+                'layoutGrid': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="12" x2="12" y1="3" y2="21"/></svg>`,
+                'image': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`,
+                'send': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
+                'download': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>`,
+                'user': `<svg class="${classes} accent-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+                'phone': `<svg class="${classes} accent-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72 17.63 17.63 0 0 0 .67 2.05L6.61 8.35a2 2 0 0 0-.58 1.43 15.46 15.46 0 0 0 6.64 6.64 2 2 0 0 0 1.43-.58l1.82-1.82a17.63 17.63 0 0 0 2.05.67 2 2 0 0 1 1.72 2z"/></svg>`,
+                'mail': `<svg class="${classes} accent-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+                'mapPin': `<svg class="${classes} accent-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
                 'graduationCap': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.012-1.825L12 5 2.592 9.097a1 1 0 0 0-.01 1.825L12 14l9.42-3.078Z"/><path d="M14 12v6a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-6"/><path d="m22 20-3.5-3.5"/><path d="m2 20 3.5-3.5"/></svg>`,
                 'briefcase': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
-                'code': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>`,
                 'cpu': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><path d="M6 18v-2"/><path d="M6 8V6"/><path d="M18 18v-2"/><path d="M18 8V6"/><path d="M10 4v2"/><path d="M14 4v2"/><path d="M10 18v2"/><path d="M14 18v2"/><path d="M8 10h2"/><path d="M8 14h2"/><path d="M14 10h2"/><path d="M14 14h2"/></svg>`,
                 'zap': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+                'link': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
             };
             return icons[name] || '';
         }
+
+        // --- LOGIKA NAVIGASI (SINGLE-PAGE APPLICATION SIMULATION) ---
+        function showSection(sectionId) {
+            // Sembunyikan semua bagian
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Tampilkan bagian yang diminta
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+                // Reset scroll to top of content area when switching views
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Atur status aktif pada Navigasi
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
+        }
+
+        window.onload = () => {
+            // Tampilkan bagian Home saat halaman dimuat
+            showSection('home-section');
+
+            // Set up progress bar animation (simple fill on load)
+            document.querySelectorAll('.progress-fill').forEach(fill => {
+                const width = fill.style.width;
+                fill.style.width = '0'; // Reset for animation start
+                setTimeout(() => {
+                    fill.style.width = width;
+                }, 700); // Start animation slightly after fade-in
+            });
+        };
     </script>
 
-    <!-- CONTAINER UTAMA -->
+    <!-- FIXED NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 bg-white shadow-lg z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-8 flex justify-between items-center h-16">
+            <div class="text-xl font-bold accent-color">S.T.Kom Portofolio</div>
+            <div class="flex space-x-6 text-gray-500 font-medium text-sm">
+                <a class="nav-link flex items-center" data-section="home-section" onclick="showSection('home-section')">
+                    <script>document.write(getIcon('home', 'w-4 h-4 mr-1 accent-color'))</script> CV
+                </a>
+                <a class="nav-link flex items-center" data-section="portfolio-section" onclick="showSection('portfolio-section')">
+                    <script>document.write(getIcon('layoutGrid', 'w-4 h-4 mr-1 accent-color'))</script> Proyek
+                </a>
+                <a class="nav-link flex items-center" data-section="gallery-section" onclick="showSection('gallery-section')">
+                    <script>document.write(getIcon('image', 'w-4 h-4 mr-1 accent-color'))</script> Galeri
+                </a>
+                <a class="nav-link flex items-center" data-section="contact-section" onclick="showSection('contact-section')">
+                    <script>document.write(getIcon('send', 'w-4 h-4 mr-1 accent-color'))</script> Kontak
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- CONTAINER UTAMA UNTUK SEMUA VIEW -->
     <div class="max-w-5xl mx-auto p-4 sm:p-8">
-        
-        <!-- HEADER / PROFIL DENGAN FOTO -->
-        <header class="mb-10 bg-white p-8 rounded-xl shadow-2xl flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8">
+
+        <!-- ============================================== -->
+        <!-- VIEW 1: HOME (CV, PROFIL, PENDIDIKAN) -->
+        <!-- ============================================== -->
+        <div id="home-section" class="view-section">
             
-            <!-- Foto Profil (Placeholder) -->
-            <div class="flex-shrink-0">
-                <img 
-                    src="img/Profile.jpeg" 
-                    alt="Foto Profil Syarafina" 
-                    class="w-32 h-32 rounded-full object-cover ring-4 ring-blue-200 shadow-md"
-                >
-            </div>
+            <!-- HEADER / PROFIL DENGAN FOTO -->
+            <header class="mb-10 bg-white p-8 rounded-xl shadow-2xl flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 animate-entrance">
+                
+                <!-- Foto Profil (Placeholder) -->
+                <div class="flex-shrink-0">
+                    <!-- Placeholder Image - Ganti dengan URL foto Anda -->
+                    <img 
+                        src="img/profile2.jpg" 
+                        alt="Foto Profil Syarafina" 
+                        class="w-32 h-32 rounded-full object-cover ring-4 ring-cyan-400 shadow-xl"
+                        onerror="this.onerror=null;this.src='https://placehold.co/120x120/1e3a8a/ffffff?text=FOTO'"
+                    >
+                </div>
 
-            <!-- Detail Profil -->
-            <div class="md:text-left text-center">
-                <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Syarafina</h1>
-                <p class="text-xl font-medium text-blue-700 mt-1 mb-3">Sarjana Teknik Komputer (S.T.Kom)</p>
-                <p class="text-sm text-gray-600 max-w-2xl">Lulusan Sarjana Teknik Komputer yang mahir dalam komputasi dan manajemen sistem informasi, bersemangat mengikuti perkembangan teknologi dan terampil dalam analisis data. Memiliki etos kerja yang disiplin dan cepat beradaptasi.</p>
-            </div>
-        </header>
+                <!-- Detail Profil -->
+                <div class="md:text-left text-center">
+                    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Syarafina</h1>
+                    <p class="text-xl font-medium text-blue-700 mt-1 mb-3">Sarjana Teknik Komputer (S.T.Kom)</p>
+                    <p class="text-sm text-gray-600 max-w-2xl">Lulusan Sarjana Teknik Komputer yang mahir dalam komputasi dan manajemen sistem informasi, bersemangat mengikuti perkembangan teknologi dan terampil dalam analisis data. Memiliki etos kerja yang disiplin dan cepat beradaptasi.</p>
+                    
+                    <!-- DOWNLOAD BUTTON -->
+                    <div class="mt-6 md:mt-4">
+                        <!-- PENTING: GANTI #LINK_KE_CV_ANDA_DISINI DENGAN URL ASLI FILE PDF CV ANDA -->
+                        <a href="#LINK_KE_CV_ANDA_DISINI" download="CV_Syarafina_STKom.pdf" 
+                           class="inline-flex items-center px-6 py-3 accent-bg text-white font-bold text-sm rounded-lg shadow-xl hover:bg-cyan-700 transition duration-300 transform hover:scale-[1.02]">
+                            <script>document.write(getIcon('download', 'w-5 h-5 mr-2 text-white'))</script>
+                            Download CV (PDF)
+                        </a>
+                    </div>
+                    <!-- END DOWNLOAD BUTTON -->
 
-        <!-- GRID KONTAK DAN SEKSI -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                </div>
+            </header>
+
+            <!-- GRID KONTAK DAN SEKSI -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- KOLOM KIRI (KONTAK & DATA PRIBADI) -->
+                <div class="md:col-span-1 space-y-6">
+                    
+                    <!-- Kontak -->
+                    <div class="bg-white p-6 rounded-xl shadow-md card animate-entrance delay-1">
+                        <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Kontak</h2>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-center">
+                                <script>document.write(getIcon('phone', 'w-4 h-4 mr-3 accent-color'))</script>
+                                <span>+62 819 2719 1678</span>
+                            </li>
+                            <li class="flex items-center">
+                                <script>document.write(getIcon('mail', 'w-4 h-4 mr-3 accent-color'))</script>
+                                <span>syaraaqila82210@gmail.com</span>
+                            </li>
+                            <li class="flex items-center">
+                                <script>document.write(getIcon('mapPin', 'w-4 h-4 mr-3 accent-color'))</script>
+                                <span>Banda Aceh, Aceh</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Data Pribadi -->
+                    <div class="bg-white p-6 rounded-xl shadow-md card animate-entrance delay-2">
+                        <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Data Pribadi</h2>
+                        <dl class="text-sm text-gray-600 space-y-2">
+                            <div class="flex justify-between">
+                                <dt class="font-medium">TTL:</dt>
+                                <dd class="text-right">Gampong Nyong, 25 Maret 2002</dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt class="font-medium">Jenis Kelamin:</dt>
+                                <dd class="text-right">Perempuan</dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt class="font-medium">Agama:</dt>
+                                <dd class="text-right">Islam</dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt class="font-medium">Status:</dt>
+                                <dd class="text-right">Belum Kawin</dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt class="font-medium">Kewarganegaraan:</dt>
+                                <dd class="text-right">WNI</dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Bahasa -->
+                    <div class="bg-white p-6 rounded-xl shadow-md card animate-entrance delay-3">
+                        <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Bahasa</h2>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li>
+                                <span class="font-medium">Bahasa Indonesia:</span> <span class="text-cyan-600">Aktif (Native)</span>
+                            </li>
+                            <li>
+                                <span class="font-medium">Bahasa Inggris:</span> <span class="text-cyan-600">Menengah</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- KOLOM KANAN (PENDIDIKAN, PENGALAMAN, KEAHLIAN) -->
+                <div class="md:col-span-2 space-y-8">
+                    
+                    <!-- Pendidikan -->
+                    <section class="bg-white p-6 rounded-xl shadow-md card animate-entrance delay-1">
+                        <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center accent-color">
+                            <script>document.write(getIcon('graduationCap'))</script> Riwayat Pendidikan
+                        </h2>
+                        <div class="timeline-item">
+                            <h3 class="font-semibold text-gray-800">S1 Teknik Komputer</h3>
+                            <p class="text-sm text-blue-700">Universitas Syiah Kuala | 2020 – 2025</p>
+                            <p class="text-xs text-gray-500 mt-1">Fokus studi mencakup jaringan komputer, keamanan sistem, dan rekayasa perangkat lunak.</p>
+                        </div>
+                    </section>
+                    
+                    <!-- Pengalaman -->
+                    <section class="bg-white p-6 rounded-xl shadow-md card animate-entrance delay-2">
+                        <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center accent-color">
+                            <script>document.write(getIcon('briefcase'))</script> Pengalaman Kerja & Magang
+                        </h2>
+                        
+                        <!-- Item 1: Teaching Assistant -->
+                        <div class="timeline-item">
+                            <h3 class="font-semibold text-gray-800">Teaching Assistant</h3>
+                            <p class="text-sm text-blue-700">Universitas Syiah Kuala | 5 Semester (2022-2024)</p>
+                            <p class="text-xs text-gray-700 mt-1">Mendampingi dosen dalam perkuliahan Pemrograman 1 dan 2, membantu mahasiswa memahami konsep dasar dan lanjutan pemrograman, memeriksa tugas, serta memberikan bimbingan praktikum dan konsultasi akademik.</p>
+                        </div>
+
+                        <!-- Item 2: Magang Arsip Banda Aceh -->
+                        <div class="timeline-item">
+                            <h3 class="font-semibold text-gray-800">Magang (Digitalisasi Dokumen)</h3>
+                            <p class="text-sm text-blue-700">Arsip Banda Aceh | 2024</p>
+                            <p class="text-xs text-gray-700 mt-1">Melakukan digitalisasi dokumen arsip, membantu pengelolaan basis data arsip, dan mendukung kegiatan administrasi berbasis komputer.</p>
+                        </div>
+
+                        <!-- Item 3: Magang KOMINFO -->
+                        <div class="timeline-item">
+                            <h3 class="font-semibold text-gray-800">Magang Bidang TIK</h3>
+                            <p class="text-sm text-blue-700">Dinas Komunikasi dan Informatika (KOMINFO) Banda Aceh | 2023</p>
+                            <p class="text-xs text-gray-700 mt-1">Terlibat dalam pengelolaan sistem informasi, administrasi jaringan internal, serta pendataan aset teknologi informasi di lingkungan dinas.</p>
+                        </div>
+                    </section>
+
+                    <!-- Keahlian -->
+                    <section class="bg-white p-6 rounded-xl shadow-md card animate-entrance delay-3">
+                        <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center accent-color">
+                            <script>document.write(getIcon('zap'))</script> Keterampilan Utama
+                        </h2>
+                        
+                        <!-- Hard Skills with Progress Bars -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-base text-gray-800 mb-3 flex items-center">
+                                <script>document.write(getIcon('cpu', 'w-4 h-4 mr-2 text-green-600'))</script> Hard Skills (Teknis & Komputer)
+                            </h3>
+                            <div class="space-y-4 dtext-sm text-gray-700">
+                                <!-- Skill 1 -->
+                                <div class="skill-item">
+                                    <p class="font-medium">Manajemen Komputer & Keamanan Dasar</p>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+                                </div>
+                                <!-- Skill 2 -->
+                                <div class="skill-item">
+                                    <p class="font-medium">Microsoft Office (Word, Excel, PowerPoint)</p>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+                                </div>
+                                <!-- Skill 3 -->
+                                <div class="skill-item">
+                                    <p class="font-medium">Konsep Pemrograman Dasar & Lanjutan</p>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+                                </div>
+                                <!-- Skill 4 -->
+                                <div class="skill-item">
+                                    <p class="font-medium">Kemampuan Analisis dan Pemecahan Masalah</p>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Soft Skills (as chips/tags) -->
+                        <div>
+                            <h3 class="font-semibold text-base text-gray-800 mb-3 flex items-center">
+                                <script>document.write(getIcon('user', 'w-4 h-4 mr-2 text-yellow-600'))</script> Soft Skills (Interpersonal)
+                            </h3>
+                            <div class="flex flex-wrap gap-2 text-xs">
+                                <span class="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full font-medium shadow-sm transition hover:scale-105">Cepat Belajar & Beradaptasi</span>
+                                <span class="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full font-medium shadow-sm transition hover:scale-105">Komunikatif & Terbuka</span>
+                                <span class="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full font-medium shadow-sm transition hover:scale-105">Disiplin & Teliti</span>
+                                <span class="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full font-medium shadow-sm transition hover:scale-105">Teamwork & Mandiri</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+        <!-- END OF HOME SECTION -->
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 2: PORTFOLIO (PROYEK) -->
+        <!-- ============================================== -->
+        <div id="portfolio-section" class="view-section">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-8 pb-3 border-b-2 border-cyan-400">Portofolio Proyek</h1>
+            <p class="text-gray-600 mb-10">Berikut adalah beberapa proyek dan hasil karya yang menunjukkan kemampuan teknis saya di bidang Teknik Komputer.</p>
             
-            <!-- KOLOM KIRI (KONTAK & DATA PRIBADI) -->
-            <div class="md:col-span-1 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Kontak -->
-                <div class="bg-white p-6 rounded-xl shadow-md card">
-                    <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Kontak</h2>
-                    <ul class="space-y-3 text-sm text-gray-600">
-                        <li class="flex items-center">
-                            <script>document.write(getIcon('phone', 'w-4 h-4 mr-3 text-blue-600'))</script>
-                            <span>+62 819 2719 1678</span>
-                        </li>
-                        <li class="flex items-center">
-                            <script>document.write(getIcon('mail', 'w-4 h-4 mr-3 text-blue-600'))</script>
-                            <span>syaraaqila82210@gmail.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <script>document.write(getIcon('mapPin', 'w-4 h-4 mr-3 text-blue-600'))</script>
-                            <span>Banda Aceh, Aceh</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Data Pribadi -->
-                <div class="bg-white p-6 rounded-xl shadow-md card">
-                    <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Data Pribadi</h2>
-                    <dl class="text-sm text-gray-600 space-y-2">
-                        <div class="flex justify-between">
-                            <dt class="font-medium">TTL:</dt>
-                            <dd class="text-right">Gampong Nyong, 25 Maret 2002</dd>
-                        </div>
-                        <div class="flex justify-between">
-                            <dt class="font-medium">Jenis Kelamin:</dt>
-                            <dd class="text-right">Perempuan</dd>
-                        </div>
-                        <div class="flex justify-between">
-                            <dt class="font-medium">Agama:</dt>
-                            <dd class="text-right">Islam</dd>
-                        </div>
-                        <div class="flex justify-between">
-                            <dt class="font-medium">Status:</dt>
-                            <dd class="text-right">Belum Kawin</dd>
-                        </div>
-                        <div class="flex justify-between">
-                            <dt class="font-medium">Kewarganegaraan:</dt>
-                            <dd class="text-right">WNI</dd>
-                        </div>
-                    </dl>
+                <!-- Project Card 1: Sistem Keamanan Jaringan -->
+                <div class="bg-white rounded-xl shadow-lg p-6 card animate-entrance delay-1">
+                    <img src="https://placehold.co/400x200/1e3a8a/ffffff?text=PROJECT+1" alt="Project Placeholder Image" class="rounded-lg mb-4 w-full h-32 object-cover">
+                    <h3 class="text-xl font-bold accent-color mb-2">Sistem Keamanan Jaringan Dasar</h3>
+                    <p class="text-sm text-gray-600 mb-3">Implementasi firewall dan konfigurasi VPN untuk jaringan skala kecil (UKM) menggunakan teknologi Mikrotik/Cisco.</p>
+                    <div class="flex flex-wrap gap-2 text-xs mb-4">
+                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Jaringan</span>
+                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Keamanan</span>
+                    </div>
+                    <a href="#" class="text-sm text-cyan-600 hover:text-cyan-800 font-medium flex items-center transition">
+                        <script>document.write(getIcon('link', 'w-4 h-4 mr-1'))</script> Lihat Detail Proyek
+                    </a>
                 </div>
 
-                <!-- Bahasa -->
-                <div class="bg-white p-6 rounded-xl shadow-md card">
-                    <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Bahasa</h2>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li>
-                            <span class="font-medium">Bahasa Indonesia:</span> Aktif
-                        </li>
-                        <li>
-                            <span class="font-medium">Bahasa Inggris:</span> Menengah
-                        </li>
-                    </ul>
+                <!-- Project Card 2: Aplikasi Manajemen Inventaris -->
+                <div class="bg-white rounded-xl shadow-lg p-6 card animate-entrance delay-2">
+                    <img src="https://placehold.co/400x200/06b6d4/ffffff?text=PROJECT+2" alt="Project Placeholder Image" class="rounded-lg mb-4 w-full h-32 object-cover">
+                    <h3 class="text-xl font-bold accent-color mb-2">Aplikasi Manajemen Inventaris Sederhana</h3>
+                    <p class="text-sm text-gray-600 mb-3">Pengembangan aplikasi berbasis web menggunakan PHP/MySQL untuk pendataan dan pelacakan aset kampus.</p>
+                    <div class="flex flex-wrap gap-2 text-xs mb-4">
+                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Web Development</span>
+                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Basis Data</span>
+                    </div>
+                    <a href="#" class="text-sm text-cyan-600 hover:text-cyan-800 font-medium flex items-center transition">
+                        <script>document.write(getIcon('link', 'w-4 h-4 mr-1'))</script> Kunjungi Repository
+                    </a>
                 </div>
 
-            </div>
-
-            <!-- KOLOM KANAN (PENDIDIKAN, PENGALAMAN, KEAHLIAN) -->
-            <div class="md:col-span-2 space-y-8">
-                
-                <!-- Pendidikan -->
-                <section class="bg-white p-6 rounded-xl shadow-md card">
-                    <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center">
-                        <script>document.write(getIcon('graduationCap'))</script> Pendidikan
-                    </h2>
-                    <div class="timeline-item">
-                        <h3 class="font-semibold text-gray-800">S1 Teknik Komputer</h3>
-                        <p class="text-sm text-blue-700">Universitas Syiah Kuala | 2020 – 2025</p>
-                        <p class="text-xs text-gray-500 mt-1">Fokus studi mencakup jaringan komputer, keamanan sistem, dan rekayasa perangkat lunak.</p>
+                 <!-- Project Card 3: Analisis Data -->
+                <div class="bg-white rounded-xl shadow-lg p-6 card animate-entrance delay-3">
+                    <img src="https://placehold.co/400x200/4f46e5/ffffff?text=PROJECT+3" alt="Project Placeholder Image" class="rounded-lg mb-4 w-full h-32 object-cover">
+                    <h3 class="text-xl font-bold accent-color mb-2">Analisis Performa Jaringan Kampus</h3>
+                    <p class="text-sm text-gray-600 mb-3">Studi kasus dan visualisasi data performa jaringan menggunakan Python (Pandas & Matplotlib).</p>
+                    <div class="flex flex-wrap gap-2 text-xs mb-4">
+                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Data Analysis</span>
+                        <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">Python</span>
                     </div>
-                </section>
-                
-                <!-- Pengalaman -->
-                <section class="bg-white p-6 rounded-xl shadow-md card">
-                    <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center">
-                        <script>document.write(getIcon('briefcase'))</script> Pengalaman
-                    </h2>
-                    
-                    <!-- Item 1: Teaching Assistant -->
-                    <div class="timeline-item">
-                        <h3 class="font-semibold text-gray-800">Teaching Assistant</h3>
-                        <p class="text-sm text-blue-700">Universitas Syiah Kuala | 5 Semester</p>
-                        <p class="text-xs text-gray-700 mt-1">Mendampingi dosen dalam perkuliahan Pemrograman 1 dan 2, membantu mahasiswa memahami konsep dasar dan lanjutan pemrograman, memeriksa tugas, serta memberikan bimbingan praktikum dan konsultasi akademik.</p>
-                    </div>
-
-                    <!-- Item 2: Magang Arsip Banda Aceh -->
-                    <div class="timeline-item">
-                        <h3 class="font-semibold text-gray-800">Magang (Digitalisasi Dokumen)</h3>
-                        <p class="text-sm text-blue-700">Arsip Banda Aceh | 2024</p>
-                        <p class="text-xs text-gray-700 mt-1">Melakukan digitalisasi dokumen arsip, membantu pengelolaan basis data arsip, dan mendukung kegiatan administrasi berbasis komputer.</p>
-                    </div>
-
-                    <!-- Item 3: Magang KOMINFO -->
-                    <div class="timeline-item">
-                        <h3 class="font-semibold text-gray-800">Magang Bidang TIK</h3>
-                        <p class="text-sm text-blue-700">Dinas Komunikasi dan Informatika (KOMINFO) Banda Aceh | 2023</p>
-                        <p class="text-xs text-gray-700 mt-1">Terlibat dalam pengelolaan sistem informasi, administrasi jaringan internal, serta pendataan aset teknologi informasi di lingkungan dinas.</p>
-                    </div>
-                </section>
-
-                <!-- Keahlian -->
-                <section class="bg-white p-6 rounded-xl shadow-md card">
-                    <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center">
-                        <script>document.write(getIcon('zap'))</script> Keahlian
-                    </h2>
-                    
-                    <!-- Hard Skills -->
-                    <div class="mb-4">
-                        <h3 class="font-semibold text-base text-gray-800 mb-2 flex items-center">
-                            <script>document.write(getIcon('cpu', 'w-4 h-4 mr-2 text-green-600'))</script> Hard Skills (Teknis)
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700 ml-4">
-                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Manajemen Komputer \& Keamanan Dasar</p>
-                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Microsoft Office (Word, Excel, PowerPoint)</p>
-                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Konsep Pemrograman Dasar \& Lanjutan</p>
-                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Kemampuan Analisis dan Pemecahan Masalah</p>
-                        </div>
-                    </div>
-
-                    <!-- Soft Skills -->
-                    <div>
-                        <h3 class="font-semibold text-base text-gray-800 mb-2 flex items-center">
-                            <script>document.write(getIcon('user', 'w-4 h-4 mr-2 text-yellow-600'))</script> Soft Skills (Non-Teknis)
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700 ml-4">
-                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Cepat Belajar dan Beradaptasi</p>
-                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Komunikatif dan Terbuka</p>
-                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Disiplin dan Teliti</p>
-                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Mampu Bekerja dalam Tim/Mandiri</p>
-                        </div>
-                    </div>
-                </section>
+                    <a href="#" class="text-sm text-cyan-600 hover:text-cyan-800 font-medium flex items-center transition">
+                        <script>document.write(getIcon('link', 'w-4 h-4 mr-1'))</script> Unduh Laporan
+                    </a>
+                </div>
 
             </div>
         </div>
+        <!-- END OF PORTFOLIO SECTION -->
 
-        <footer class="mt-8 text-center text-xs text-gray-500 p-4">
-            Portofolio ini dibuat oleh Syarafina. Desain Responsif menggunakan Tailwind CSS.
+
+        <!-- ============================================== -->
+        <!-- VIEW 3: GALLERY (GAMBAR/FOTO) -->
+        <!-- ============================================== -->
+        <div id="gallery-section" class="view-section">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-8 pb-3 border-b-2 border-cyan-400">Galeri Foto & Dokumentasi</h1>
+            <p class="text-gray-600 mb-10">Kumpulan dokumentasi kegiatan akademik, kepanitiaan, dan momen penting selama masa studi dan magang.</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                
+                <!-- Gallery Item 1 -->
+                <div class="card animate-entrance delay-1 overflow-hidden rounded-lg shadow-md hover:shadow-xl">
+                    <img src="https://placehold.co/300x300/1e3a8a/ffffff?text=Aktivitas+Kampus" alt="Dokumentasi Kegiatan Kampus" class="w-full h-40 object-cover transform transition duration-500 hover:scale-110">
+                </div>
+
+                <!-- Gallery Item 2 -->
+                <div class="card animate-entrance delay-2 overflow-hidden rounded-lg shadow-md hover:shadow-xl">
+                    <img src="https://placehold.co/300x300/06b6d4/ffffff?text=Magang+KOMINFO" alt="Dokumentasi Magang di Kominfo" class="w-full h-40 object-cover transform transition duration-500 hover:scale-110">
+                </div>
+
+                <!-- Gallery Item 3 -->
+                <div class="card animate-entrance delay-3 overflow-hidden rounded-lg shadow-md hover:shadow-xl">
+                    <img src="https://placehold.co/300x300/4f46e5/ffffff?text=Praktikum+Lab" alt="Dokumentasi Praktikum Laboratorium" class="w-full h-40 object-cover transform transition duration-500 hover:scale-110">
+                </div>
+
+                <!-- Gallery Item 4 -->
+                <div class="card animate-entrance delay-4 overflow-hidden rounded-lg shadow-md hover:shadow-xl">
+                    <img src="https://placehold.co/300x300/94a3b8/ffffff?text=Seminar+Teknologi" alt="Dokumentasi Seminar Teknologi" class="w-full h-40 object-cover transform transition duration-500 hover:scale-110">
+                </div>
+
+                <!-- Gallery Item 5 -->
+                <div class="card animate-entrance delay-5 overflow-hidden rounded-lg shadow-md hover:shadow-xl">
+                    <img src="https://placehold.co/300x300/1e3a8a/ffffff?text=Project+Team" alt="Dokumentasi Kerja Tim" class="w-full h-40 object-cover transform transition duration-500 hover:scale-110">
+                </div>
+            </div>
+
+            <div class="mt-8 text-center text-sm p-4 bg-white rounded-xl shadow-md">
+                <p>Rekaman jejak kegiatan pengembaraan hidup.</p>
+                <!-- <p class="text-gray-500">Galeri ini hanya berisi gambar placeholder. Ganti URL gambar dengan foto asli Anda untuk tampilan yang optimal.</p> -->
+            </div>
+        </div>
+        <!-- END OF GALLERY SECTION -->
+
+
+        <!-- ============================================== -->
+        <!-- VIEW 4: CONTACT (KONTAK) -->
+        <!-- ============================================== -->
+        <div id="contact-section" class="view-section">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-8 pb-3 border-b-2 border-cyan-400">Hubungi Saya</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Info Kontak Detil dan WA Button -->
+                <div class="md:col-span-1 space-y-6">
+                     <div class="bg-white p-6 rounded-xl shadow-md card animate-entrance delay-1">
+                        <h2 class="text-xl font-bold text-gray-700 mb-4 section-header">Info Kontak</h2>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start">
+                                <script>document.write(getIcon('mail', 'w-5 h-5 flex-shrink-0 mt-0.5 mr-3 accent-color'))</script>
+                                <div>
+                                    <p class="font-semibold">Email Utama</p>
+                                    <p class="text-sm">syaraaqila82210@gmail.com</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <script>document.write(getIcon('phone', 'w-5 h-5 flex-shrink-0 mt-0.5 mr-3 accent-color'))</script>
+                                <div>
+                                    <p class="font-semibold">Telepon/WhatsApp</p>
+                                    <p class="text-sm">+62 819 2719 1678</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <script>document.write(getIcon('mapPin', 'w-5 h-5 flex-shrink-0 mt-0.5 mr-3 accent-color'))</script>
+                                <div>
+                                    <p class="font-semibold">Lokasi</p>
+                                    <p class="text-sm">Banda Aceh, Aceh</p>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="mt-6 pt-4 border-t border-gray-200">
+                            <p class="text-sm text-gray-500 mb-3">Opsi tercepat untuk terhubung:</p>
+                            <!-- WA BUTTON: Icon WhatsApp dihapus sesuai permintaan -->
+                            <a href="https://wa.me/6281927191678?text=Halo%20Syarafina%2C%20saya%20mendapat%20kontak%20dari%20portofolio%20Anda.%20Saya%20tertarik%20dengan..." target="_blank"
+                               class="inline-flex justify-center w-full px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-[1.02]">
+                                Chat via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tombol Mailto Pengganti Formulir Kontak -->
+                <div class="md:col-span-2 bg-white p-8 rounded-xl shadow-md card animate-entrance delay-2 flex flex-col justify-center items-center text-center">
+                    <h2 class="text-xl font-bold text-gray-700 mb-4">Kirim Pesan Melalui Email</h2>
+                    <p class="text-gray-600 mb-6 max-w-lg">Klik tombol di bawah ini untuk secara otomatis membuka aplikasi email default Anda (seperti Outlook atau Gmail) dan mulai menulis pesan kepada Syarafina.</p>
+                    
+                    <a href="mailto:syaraaqila82210@gmail.com?subject=Portofolio%20Syarafina%20-%20Pesan%20dari%20Web&body=Halo%20Syarafina%2C%0A%0ASaya%20mendapat%20kontak%20dari%20portofolio%20Anda.%20Saya%20tertarik%20dengan..." 
+                       class="w-full md:w-3/4 px-6 py-3 accent-bg text-white font-semibold rounded-lg shadow-xl hover:bg-cyan-700 transition duration-300 transform hover:scale-[1.02] flex items-center justify-center">
+                        <script>document.write(getIcon('mail', 'w-5 h-5 mr-2 text-white'))</script>
+                        Buka Aplikasi Email Anda
+                    </a>
+                    <p class="mt-4 text-sm text-gray-500">Email akan ditujukan ke syaraaqila82210@gmail.com</p>
+                </div>
+            </div>
+        </div>
+        <!-- END OF CONTACT SECTION -->
+
+        <footer class="mt-12 text-center text-xs text-gray-500 p-4">
+            Didesain dan dikembangkan oleh Syarafina. (Code structure: HTML/Tailwind CSS)
         </footer>
 
     </div>
