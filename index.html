@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - Syarafina, S.T.Kom</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat ikon Lucide (untuk tampilan modern) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* light slate background */
+        }
+        .section-header {
+            border-left: 4px solid #1d4ed8; /* Blue-700 */
+            padding-left: 1rem;
+        }
+        /* Style untuk kartu yang interaktif */
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            transform: translateY(-3px);
+        }
+        /* Style untuk timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            width: 10px;
+            height: 10px;
+            background: #1d4ed8; /* Blue-700 */
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 1rem;
+            bottom: -0.5rem;
+            width: 2px;
+            background: #cbd5e1; /* Gray-300 */
+            z-index: 5;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        // Fungsi untuk ikon Lucide
+        function getIcon(name, classes = 'w-5 h-5 mr-3') {
+            const icons = {
+                'user': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+                'phone': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72 17.63 17.63 0 0 0 .67 2.05L6.61 8.35a2 2 0 0 0-.58 1.43 15.46 15.46 0 0 0 6.64 6.64 2 2 0 0 0 1.43-.58l1.82-1.82a17.63 17.63 0 0 0 2.05.67 2 2 0 0 1 1.72 2z"/></svg>`,
+                'mail': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+                'mapPin': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+                'graduationCap': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.012-1.825L12 5 2.592 9.097a1 1 0 0 0-.01 1.825L12 14l9.42-3.078Z"/><path d="M14 12v6a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-6"/><path d="m22 20-3.5-3.5"/><path d="m2 20 3.5-3.5"/></svg>`,
+                'briefcase': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+                'code': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>`,
+                'cpu': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><path d="M6 18v-2"/><path d="M6 8V6"/><path d="M18 18v-2"/><path d="M18 8V6"/><path d="M10 4v2"/><path d="M14 4v2"/><path d="M10 18v2"/><path d="M14 18v2"/><path d="M8 10h2"/><path d="M8 14h2"/><path d="M14 10h2"/><path d="M14 14h2"/></svg>`,
+                'zap': `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+            };
+            return icons[name] || '';
+        }
+    </script>
+
+    <!-- CONTAINER UTAMA -->
+    <div class="max-w-5xl mx-auto p-4 sm:p-8">
+        
+        <!-- HEADER / PROFIL DENGAN FOTO -->
+        <header class="mb-10 bg-white p-8 rounded-xl shadow-2xl flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8">
+            
+            <!-- Foto Profil (Placeholder) -->
+            <div class="flex-shrink-0">
+                <img 
+                    src="img/Profile.jpeg" 
+                    alt="Foto Profil Syarafina" 
+                    class="w-32 h-32 rounded-full object-cover ring-4 ring-blue-200 shadow-md"
+                >
+            </div>
+
+            <!-- Detail Profil -->
+            <div class="md:text-left text-center">
+                <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Syarafina</h1>
+                <p class="text-xl font-medium text-blue-700 mt-1 mb-3">Sarjana Teknik Komputer (S.T.Kom)</p>
+                <p class="text-sm text-gray-600 max-w-2xl">Lulusan Sarjana Teknik Komputer yang mahir dalam komputasi dan manajemen sistem informasi, bersemangat mengikuti perkembangan teknologi dan terampil dalam analisis data. Memiliki etos kerja yang disiplin dan cepat beradaptasi.</p>
+            </div>
+        </header>
+
+        <!-- GRID KONTAK DAN SEKSI -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- KOLOM KIRI (KONTAK & DATA PRIBADI) -->
+            <div class="md:col-span-1 space-y-6">
+                
+                <!-- Kontak -->
+                <div class="bg-white p-6 rounded-xl shadow-md card">
+                    <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Kontak</h2>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li class="flex items-center">
+                            <script>document.write(getIcon('phone', 'w-4 h-4 mr-3 text-blue-600'))</script>
+                            <span>+62 819 2719 1678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <script>document.write(getIcon('mail', 'w-4 h-4 mr-3 text-blue-600'))</script>
+                            <span>syaraaqila82210@gmail.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <script>document.write(getIcon('mapPin', 'w-4 h-4 mr-3 text-blue-600'))</script>
+                            <span>Banda Aceh, Aceh</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Data Pribadi -->
+                <div class="bg-white p-6 rounded-xl shadow-md card">
+                    <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Data Pribadi</h2>
+                    <dl class="text-sm text-gray-600 space-y-2">
+                        <div class="flex justify-between">
+                            <dt class="font-medium">TTL:</dt>
+                            <dd class="text-right">Gampong Nyong, 25 Maret 2002</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="font-medium">Jenis Kelamin:</dt>
+                            <dd class="text-right">Perempuan</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="font-medium">Agama:</dt>
+                            <dd class="text-right">Islam</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="font-medium">Status:</dt>
+                            <dd class="text-right">Belum Kawin</dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt class="font-medium">Kewarganegaraan:</dt>
+                            <dd class="text-right">WNI</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- Bahasa -->
+                <div class="bg-white p-6 rounded-xl shadow-md card">
+                    <h2 class="text-lg font-bold text-gray-700 mb-4 section-header">Bahasa</h2>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>
+                            <span class="font-medium">Bahasa Indonesia:</span> Aktif
+                        </li>
+                        <li>
+                            <span class="font-medium">Bahasa Inggris:</span> Menengah
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- KOLOM KANAN (PENDIDIKAN, PENGALAMAN, KEAHLIAN) -->
+            <div class="md:col-span-2 space-y-8">
+                
+                <!-- Pendidikan -->
+                <section class="bg-white p-6 rounded-xl shadow-md card">
+                    <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center">
+                        <script>document.write(getIcon('graduationCap'))</script> Pendidikan
+                    </h2>
+                    <div class="timeline-item">
+                        <h3 class="font-semibold text-gray-800">S1 Teknik Komputer</h3>
+                        <p class="text-sm text-blue-700">Universitas Syiah Kuala | 2020 – 2025</p>
+                        <p class="text-xs text-gray-500 mt-1">Fokus studi mencakup jaringan komputer, keamanan sistem, dan rekayasa perangkat lunak.</p>
+                    </div>
+                </section>
+                
+                <!-- Pengalaman -->
+                <section class="bg-white p-6 rounded-xl shadow-md card">
+                    <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center">
+                        <script>document.write(getIcon('briefcase'))</script> Pengalaman
+                    </h2>
+                    
+                    <!-- Item 1: Teaching Assistant -->
+                    <div class="timeline-item">
+                        <h3 class="font-semibold text-gray-800">Teaching Assistant</h3>
+                        <p class="text-sm text-blue-700">Universitas Syiah Kuala | 5 Semester</p>
+                        <p class="text-xs text-gray-700 mt-1">Mendampingi dosen dalam perkuliahan Pemrograman 1 dan 2, membantu mahasiswa memahami konsep dasar dan lanjutan pemrograman, memeriksa tugas, serta memberikan bimbingan praktikum dan konsultasi akademik.</p>
+                    </div>
+
+                    <!-- Item 2: Magang Arsip Banda Aceh -->
+                    <div class="timeline-item">
+                        <h3 class="font-semibold text-gray-800">Magang (Digitalisasi Dokumen)</h3>
+                        <p class="text-sm text-blue-700">Arsip Banda Aceh | 2024</p>
+                        <p class="text-xs text-gray-700 mt-1">Melakukan digitalisasi dokumen arsip, membantu pengelolaan basis data arsip, dan mendukung kegiatan administrasi berbasis komputer.</p>
+                    </div>
+
+                    <!-- Item 3: Magang KOMINFO -->
+                    <div class="timeline-item">
+                        <h3 class="font-semibold text-gray-800">Magang Bidang TIK</h3>
+                        <p class="text-sm text-blue-700">Dinas Komunikasi dan Informatika (KOMINFO) Banda Aceh | 2023</p>
+                        <p class="text-xs text-gray-700 mt-1">Terlibat dalam pengelolaan sistem informasi, administrasi jaringan internal, serta pendataan aset teknologi informasi di lingkungan dinas.</p>
+                    </div>
+                </section>
+
+                <!-- Keahlian -->
+                <section class="bg-white p-6 rounded-xl shadow-md card">
+                    <h2 class="text-xl font-bold text-gray-700 mb-4 section-header flex items-center">
+                        <script>document.write(getIcon('zap'))</script> Keahlian
+                    </h2>
+                    
+                    <!-- Hard Skills -->
+                    <div class="mb-4">
+                        <h3 class="font-semibold text-base text-gray-800 mb-2 flex items-center">
+                            <script>document.write(getIcon('cpu', 'w-4 h-4 mr-2 text-green-600'))</script> Hard Skills (Teknis)
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700 ml-4">
+                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Manajemen Komputer \& Keamanan Dasar</p>
+                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Microsoft Office (Word, Excel, PowerPoint)</p>
+                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Konsep Pemrograman Dasar \& Lanjutan</p>
+                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Kemampuan Analisis dan Pemecahan Masalah</p>
+                        </div>
+                    </div>
+
+                    <!-- Soft Skills -->
+                    <div>
+                        <h3 class="font-semibold text-base text-gray-800 mb-2 flex items-center">
+                            <script>document.write(getIcon('user', 'w-4 h-4 mr-2 text-yellow-600'))</script> Soft Skills (Non-Teknis)
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700 ml-4">
+                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Cepat Belajar dan Beradaptasi</p>
+                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Komunikatif dan Terbuka</p>
+                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Disiplin dan Teliti</p>
+                            <p class="flex items-center"><span class="text-blue-700 mr-2">•</span> Mampu Bekerja dalam Tim/Mandiri</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <footer class="mt-8 text-center text-xs text-gray-500 p-4">
+            Portofolio ini dibuat oleh Syarafina. Desain Responsif menggunakan Tailwind CSS.
+        </footer>
+
+    </div>
+
+</body>
+</html>
